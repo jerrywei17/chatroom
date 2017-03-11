@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script>
+    $(function() {
+        var socket = io.connect('http://localhost:3000');
+        socket.on('connect', function() {
+            socket.emit('addme', prompt('Who are you?'));
+        });
+
+        socket.on('chat', function(username, data) {
+            $('#messages').append($('<li>').html('<span class="name">' + username + ' :</span> ' + data));
+        });
+
+        $('form').submit(function() {
+            socket.emit('sendchat', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+    });
+</script>
+
+<body>
+    <div class="msgBox">
+        <ul id="messages"></ul>
+    </div>
+    <form action="">
+        <div class="msgContainer clearfloat">
+            <input class="msgInput" id="m" autocomplete="off" /><button class="msgSubmitBtn">Send</button>
+        </div>
+    </form>
+
+</body>
+</body>
+
+</html>

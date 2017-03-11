@@ -1,0 +1,57 @@
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+ 
+ body {
+     font: 13px Helvetica, Arial;
+ }
+ 
+ .msgContainer {
+     width: 100%;
+     position: fixed;
+     bottom: 0px;
+     background: #111;
+     display: flex;
+ }
+ 
+ .msgInput {
+     flex: 1;
+     margin: 5px 5px;
+     height: 30px;
+     border: none;
+ }
+ 
+ .msgSubmitBtn {
+     width: 200px;
+     height: 30px;
+     padding: 5px 5px;
+     margin: 5px 5px;
+     background: rgb(130, 224, 255);
+     border: none;
+ }
+ 
+ .msgSubmitBtn:active {
+     background: rgb(117, 200, 227);
+ }
+ 
+ .msgBox {}
+ 
+ #messages {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+ }
+ 
+ #messages li {
+     padding: 5px 10px;
+ }
+ 
+ #messages li .name {
+     font-weight: bold;
+ }
+ 
+ #messages li:nth-child(odd) {
+     background: #eee;
+ }
