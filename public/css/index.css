@@ -28,30 +28,33 @@
      height: 30px;
      padding: 5px 5px;
      margin: 5px 5px;
-     background: rgb(130, 224, 255);
+     background: #eee;
      border: none;
  }
  
  .msgSubmitBtn:active {
-     background: rgb(117, 200, 227);
+     background: #aaa;
  }
  
- .msgBox {}
- 
- #messages {
-     list-style-type: none;
-     margin: 0;
+ .msgBox {
+     position: absolute;
+     top: 0;
+     bottom: 5%;
+     width: 100%;
+     margin-bottom: 10px;
      padding: 0;
+     list-style-type: none;
+     overflow: auto;
  }
  
- #messages li {
+ .msgBox li {
      padding: 5px 10px;
  }
  
- #messages li .name {
+ .msgBox li .name {
      font-weight: bold;
  }
  
- #messages li:nth-child(odd) {
+ .msgBox li:nth-child(odd) {
      background: #eee;
  }

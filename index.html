@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>chatroom</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/index.css">
 </head>
@@ -11,33 +11,39 @@
 <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script>
     $(function() {
-        var socket = io.connect('http://localhost:3000');
+        var socket = io();
         socket.on('connect', function() {
-            socket.emit('addme', prompt('Who are you?'));
+            socket.emit('addme', prompt('請輸入暱稱：'));
         });
 
         socket.on('chat', function(username, data) {
             $('#messages').append($('<li>').html('<span class="name">' + username + ' :</span> ' + data));
+            var msgBox = document.getElementById('msgBox');
+            console.log(msgBox.scrollHeight);
+            msgBox.scrollTop = msgBox.scrollHeight;
         });
 
-        $('form').submit(function() {
-            socket.emit('sendchat', $('#m').val());
-            $('#m').val('');
+        $('#msgSubmitBtn').click(function() {
+            socket.emit('sendchat', $('#msgInput').val());
+            $('#msgInput').val('');
             return false;
+        });
+
+        $("#msgInput").keydown(function(event) {
+            if (event.which == 13) {
+                $('#msgSubmitBtn').click();
+            }
         });
     });
 </script>
 
 <body>
-    <div class="msgBox">
+    <div id="msgBox" class="msgBox">
         <ul id="messages"></ul>
     </div>
-    <form action="">
-        <div class="msgContainer clearfloat">
-            <input class="msgInput" id="m" autocomplete="off" /><button class="msgSubmitBtn">Send</button>
-        </div>
-    </form>
-
+    <div class="msgContainer">
+        <input class="msgInput" id="msgInput" autocomplete="off" /><button id="msgSubmitBtn" class="msgSubmitBtn">Send</button>
+    </div>
 </body>
 </body>
 

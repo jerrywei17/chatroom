@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
+var port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 app.get('/', function(req, res) {
@@ -12,19 +12,19 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
     socket.on('addme', function(username) {
         socket.username = username;
-        socket.emit('chat', 'SERVER', 'You have connected');
-        socket.broadcast.emit('chat', 'SERVER', username + ' is on deck');
+        socket.emit('chat', 'SERVER', '你已加入聊天室...');
+        socket.broadcast.emit('chat', 'SERVER', username + ' 進入聊天室...');
     });
     socket.on('sendchat', function(data) {
         io.sockets.emit('chat', socket.username, data);
     });
 
     socket.on('disconnect', function() {
-        io.sockets.emit('chat', 'SERVER', socket.username + ' has left the building');
+        io.sockets.emit('chat', 'SERVER', socket.username + ' 離開聊天室...');
     });
 });
 
 
-http.listen(3000, function() {
-    console.log('listening on *:3000');
+http.listen(port, function() {
+    console.log('listening on *:' + port);
 });
